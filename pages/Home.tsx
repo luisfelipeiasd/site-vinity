@@ -164,24 +164,15 @@ const Home = () => {
 
       {/* Portfolio Preview */}
       <section id="portfolio" className="py-32 bg-porcelain px-6 scroll-mt-24">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-            <Reveal>
+        <div className="max-w-7xl mx-auto flex flex-col items-center">
+          <div className="flex flex-col items-center mb-16 text-center">
+            <Reveal width="100%" className="flex flex-col items-center">
               <span className="text-primary font-bold tracking-widest uppercase text-xs mb-3 block">Portfólio</span>
               <h2 className="font-serif text-4xl md:text-6xl font-medium text-background-dark">Nossas Obras-Primas</h2>
             </Reveal>
-            <Reveal delay={0.2} direction="left">
-              <Link
-                to="/portfolio"
-                className="group flex items-center gap-2 text-background-dark font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors"
-              >
-                Ver Portfólio Completo
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-            </Reveal>
           </div>
 
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 w-full">
             {featuredProjects.map((project, index) => (
               <Reveal key={project.id} delay={index * 0.1} width="100%">
                 <Link to="/portfolio" className="relative group block break-inside-avoid rounded-3xl overflow-hidden shadow-lg cursor-pointer">
@@ -202,6 +193,19 @@ const Home = () => {
                 </Link>
               </Reveal>
             ))}
+          </div>
+
+          <div className="flex justify-center mt-16">
+            <Reveal delay={0.2} width="100%" className="flex justify-center">
+              <Link
+                to="/portfolio"
+                className="group flex items-center gap-2 text-background-dark font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors"
+                onClick={() => window.scrollTo(0, 0)}
+              >
+                Ver Portfólio Completo
+                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+              </Link>
+            </Reveal>
           </div>
         </div>
       </section>
