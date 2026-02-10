@@ -3,6 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { Gem, Menu, X, Facebook, Instagram, Twitter, Settings } from 'lucide-react';
 import { Button } from './ui/Button';
 import { useSettings } from '../context/SettingsContext';
+import { WhatsAppWidget } from './WhatsAppWidget';
+
+const handleWhatsAppClick = () => {
+  window.open(`https://wa.me/5562984077910?text=${encodeURIComponent("Olá! Gostaria de agendar uma consultoria.")}`, '_blank');
+};
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { settings } = useSettings();
@@ -98,7 +103,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
           {/* Actions Container */}
           <div className="flex-1 flex items-center justify-end gap-4">
-            <Button variant="primary" className="hidden sm:flex py-2 px-6 text-sm">
+            <Button variant="primary" className="hidden sm:flex py-2 px-6 text-sm" onClick={handleWhatsAppClick}>
               Agendar Consultoria
             </Button>
             <button
@@ -126,12 +131,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 {link.name}
               </a>
             ))}
-            <Button className="w-full mt-4" aria-label="Agendar Consultoria através do menu">Agendar Consultoria</Button>
+            <Button className="w-full mt-4" aria-label="Agendar Consultoria através do menu" onClick={handleWhatsAppClick}>Agendar Consultoria</Button>
           </div>
         </div>
       )}
 
       {children}
+      <WhatsAppWidget />
 
       {/* Footer */}
       <footer className="bg-background-dark text-white/60 py-16 border-t border-white/10">

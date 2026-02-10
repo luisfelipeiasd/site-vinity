@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { PlayCircle, Diamond, CheckCircle2, BookOpen, ChevronLeft, ChevronRight, Video, Palette, Globe, TrendingUp, Play, ArrowRight } from 'lucide-react';
+import { PlayCircle, Diamond, CheckCircle2, BookOpen, ChevronLeft, ChevronRight, Video, Palette, Globe, TrendingUp, Play, ArrowRight, MessageCircle } from 'lucide-react';
 import { Reveal } from '../components/ui/Reveal';
 import { Button } from '../components/ui/Button';
 import { IMAGES, PROJECTS, SERVICES, TESTIMONIALS } from '../constants';
@@ -13,6 +13,17 @@ const Home = () => {
   const [featuredProjects, setFeaturedProjects] = useState<any[]>([]);
   const [mainTestimonial, setMainTestimonial] = useState<any>(null);
   const [dynamicServices, setDynamicServices] = useState<any[]>([]);
+
+  const handleWhatsAppClick = () => {
+    window.open(`https://wa.me/5562984077910?text=${encodeURIComponent("Olá! Gostaria de agendar uma consultoria.")}`, '_blank');
+  };
+
+  const handleScrollToPortfolio = () => {
+    const element = document.getElementById('portfolio');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,8 +64,8 @@ const Home = () => {
 
           <Reveal delay={0.8} direction="up">
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Button variant="white">Ver Nossos Resultados</Button>
-              <Button variant="glass" icon={<PlayCircle size={20} />}>Showreel 2024</Button>
+              <Button variant="white" onClick={handleScrollToPortfolio}>Ver Nossos Resultados</Button>
+              <Button variant="glass" icon={<MessageCircle size={20} />} onClick={handleWhatsAppClick}>Entrar em Contato</Button>
             </div>
           </Reveal>
         </div>
@@ -261,7 +272,7 @@ const Home = () => {
             </p>
           </Reveal>
           <Reveal delay={0.4} width="100%" className="flex justify-center">
-            <Button variant="primary" className="text-lg px-12 py-5">Quero Ser Uma Autoridade Digital</Button>
+            <Button variant="primary" className="text-lg px-12 py-5" onClick={handleWhatsAppClick}>Quero Ser Uma Autoridade Digital</Button>
           </Reveal>
         </div>
       </section>
