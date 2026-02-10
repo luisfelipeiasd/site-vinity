@@ -30,7 +30,7 @@ const Home = () => {
   return (
     <main className="flex-grow">
       {/* Hero Section */}
-      <section className="relative w-full h-[95vh] min-h-[850px] flex items-center justify-center overflow-hidden bg-background-dark pb-40">
+      <section className="relative w-full h-[95vh] min-h-[600px] md:min-h-[850px] flex items-center justify-center overflow-hidden bg-background-dark pb-20 md:pb-40">
         <div
           className="absolute inset-0 z-0 bg-cover bg-center opacity-60 scale-105 animate-[kenburns_20s_infinite_alternate]"
           style={{ backgroundImage: `url('${settings.hero_banner || IMAGES.HERO}')` }}
@@ -61,7 +61,7 @@ const Home = () => {
       </section>
 
       {/* Floating Cards (Pain Points) */}
-      <section className="relative z-30 -mt-20 px-6 pb-20">
+      <section className="relative z-30 -mt-10 md:-mt-20 px-6 pb-20">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
@@ -81,7 +81,7 @@ const Home = () => {
             }
           ].map((item, index) => (
             <Reveal key={index} delay={0.2 * index} direction="up" width="100%">
-              <div className="h-full group bg-white/90 backdrop-blur-xl border border-white/50 p-10 rounded-3xl shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500">
+              <div className="h-full group bg-white/90 backdrop-blur-xl border border-white/50 p-8 md:p-10 rounded-3xl shadow-2xl hover:shadow-primary/10 hover:-translate-y-2 transition-all duration-500">
                 <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-6 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                   {item.icon}
                 </div>
@@ -101,7 +101,7 @@ const Home = () => {
             <h2 className="font-serif text-4xl md:text-6xl font-medium text-background-dark">Excelência em Cada Detalhe</h2>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-[350px]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 auto-rows-auto md:auto-rows-[350px]">
             {(dynamicServices.length > 0 ? dynamicServices : SERVICES).map((service, index) => (
               <Reveal
                 key={service.id}
@@ -111,7 +111,7 @@ const Home = () => {
               >
                 <a href="#servicos" className="block h-full group">
                   {service.image_url || service.image ? (
-                    <div className="relative h-full w-full rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                    <div className="relative h-[300px] md:h-full w-full rounded-3xl overflow-hidden shadow-lg cursor-pointer">
                       <div
                         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                         style={{ backgroundImage: `url('${service.image_url || service.image}')` }}
@@ -130,7 +130,7 @@ const Home = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="h-full bg-white p-10 rounded-3xl shadow-sm border border-[#e4e3dc] flex flex-col justify-between group-hover:border-primary/50 transition-colors">
+                    <div className="h-full bg-white p-8 md:p-10 rounded-3xl shadow-sm border border-[#e4e3dc] flex flex-col justify-between group-hover:border-primary/50 transition-colors py-12 md:py-10">
                       <div className="w-14 h-14 rounded-full bg-background-light flex items-center justify-center text-background-dark group-hover:bg-primary group-hover:text-white transition-colors duration-300">
                         {service.icon === 'Palette' && <Palette size={24} />}
                         {service.icon === 'Globe' && <Globe size={24} />}
@@ -212,7 +212,7 @@ const Home = () => {
 
           {mainTestimonial && (
             <Reveal width="100%">
-              <div className="relative bg-white p-12 md:p-20 rounded-3xl shadow-2xl text-center">
+              <div className="relative bg-white p-8 md:p-20 rounded-3xl shadow-2xl text-center">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg shadow-primary/30">
                   <span className="text-4xl font-serif">"</span>
                 </div>
@@ -232,10 +232,10 @@ const Home = () => {
                 </div>
 
                 {/* Slider Controls (Visual Only for now since we just show the first one) */}
-                <button aria-label="Depoimento anterior" className="absolute top-1/2 -left-6 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-background-dark hover:bg-primary hover:text-white transition-colors cursor-pointer">
+                <button aria-label="Depoimento anterior" className="absolute top-1/2 -left-6 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg hidden md:flex items-center justify-center text-background-dark hover:bg-primary hover:text-white transition-colors cursor-pointer">
                   <ChevronLeft size={24} />
                 </button>
-                <button aria-label="Próximo depoimento" className="absolute top-1/2 -right-6 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center text-background-dark hover:bg-primary hover:text-white transition-colors cursor-pointer">
+                <button aria-label="Próximo depoimento" className="absolute top-1/2 -right-6 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg hidden md:flex items-center justify-center text-background-dark hover:bg-primary hover:text-white transition-colors cursor-pointer">
                   <ChevronRight size={24} />
                 </button>
               </div>

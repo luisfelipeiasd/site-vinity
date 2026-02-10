@@ -114,8 +114,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden animate-fade-in">
-          <div className="flex flex-col gap-6 items-center">
+        <div className="fixed inset-0 z-40 bg-white pt-32 px-6 md:hidden animate-fade-in overflow-y-auto">
+          <div className="flex flex-col gap-8 items-center pb-12">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -187,8 +187,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             </div>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/10 text-xs text-center flex justify-between items-center">
-          <span>© 2024 Vinity. Todos os direitos reservados.</span>
+        <div className="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/10 text-xs text-center flex flex-col md:flex-row justify-between items-center gap-6">
+          <span>© 2026 Vinity. Todos os direitos reservados.</span>
           <Link to="/admin" title="Acessar Área Administrativa" className="text-white/20 hover:text-primary transition-colors flex items-center gap-1 group">
             <Settings size={12} className="group-hover:rotate-45 transition-transform" />
             Painel Admin
