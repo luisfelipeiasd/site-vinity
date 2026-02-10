@@ -24,6 +24,19 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('/#')) {
+      const id = href.replace('/#', '');
+      const element = document.getElementById(id);
+
+      if (location.pathname === '/' && element) {
+        e.preventDefault();
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+      setMobileMenuOpen(false);
+    }
+  };
+
   const navLinks = [
     { name: 'Serviços', href: '/#servicos' },
     { name: 'Portfólio', href: '/#portfolio' },
@@ -66,6 +79,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
               <a
                 key={link.name}
                 href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className={`text-sm font-medium transition-colors hover:text-primary ${(isScrolled || location.pathname !== '/') ? 'text-background-dark/80' : 'text-white/90 hover:text-white'
                   }`}
               >
@@ -98,7 +112,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 key={link.name}
                 href={link.href}
                 className="text-2xl font-serif text-background-dark"
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, link.href)}
               >
                 {link.name}
               </a>
