@@ -94,7 +94,7 @@ const Home = () => {
       </section>
 
       {/* Services Bento Grid */}
-      <section id="servicos" className="py-32 bg-warm-beige px-6">
+      <section id="servicos" className="py-32 bg-warm-beige px-6 scroll-mt-24">
         <div className="max-w-7xl mx-auto">
           <Reveal className="mb-16 text-center w-full" width="100%">
             <span className="text-primary font-bold tracking-widest uppercase text-xs mb-3 block">Nossas Soluções</span>
@@ -152,7 +152,7 @@ const Home = () => {
       </section>
 
       {/* Portfolio Preview */}
-      <section id="portfolio" className="py-32 bg-porcelain px-6">
+      <section id="portfolio" className="py-32 bg-porcelain px-6 scroll-mt-24">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <Reveal>
@@ -196,7 +196,7 @@ const Home = () => {
       </section>
 
       {/* Testimonials */}
-      <section id="depoimentos" className="py-32 bg-warm-beige border-t border-[#e4e3dc]">
+      <section id="depoimentos" className="py-32 bg-warm-beige border-t border-[#e4e3dc] scroll-mt-24">
         <div className="max-w-5xl mx-auto px-6">
           <Reveal className="text-center mb-12 w-full" width="100%">
             <p className="text-background-dark/60 font-semibold uppercase tracking-widest text-sm">Clínicas que confiam na Vinity</p>

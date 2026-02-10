@@ -26,8 +26,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
   const navLinks = [
     { name: 'Serviços', href: '/#servicos' },
-    { name: 'Portfólio', href: '/portfolio' },
-    { name: 'Sobre', href: '/#sobre' },
+    { name: 'Portfólio', href: '/#portfolio' },
     { name: 'Depoimentos', href: '/#depoimentos' },
   ];
 
@@ -137,9 +136,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           <div>
             <h4 className="text-white font-bold mb-6 font-serif">Navegação</h4>
             <ul className="flex flex-col gap-3 text-sm">
-              <li><a href="#servicos" className="hover:text-primary transition-colors">Serviços</a></li>
-              <li><Link to="/portfolio" className="hover:text-primary transition-colors">Portfólio</Link></li>
-              <li><a href="#sobre" className="hover:text-primary transition-colors">Sobre Nós</a></li>
+              <li><a href="/#servicos" className="hover:text-primary transition-colors">Serviços</a></li>
+              <li><a href="/#portfolio" className="hover:text-primary transition-colors">Portfólio</a></li>
+              <li><a href="/#depoimentos" className="hover:text-primary transition-colors">Depoimentos</a></li>
             </ul>
           </div>
           <div>
