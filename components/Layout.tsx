@@ -57,28 +57,31 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           : 'bg-transparent border-transparent py-6'
           }`}
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 group">
-            {settings.header_logo && !logoError ? (
-              <img
-                src={settings.header_logo}
-                alt="Vinity Logo"
-                className="h-10 w-auto object-contain"
-                onError={() => setLogoError(true)}
-              />
-            ) : (
-              <>
-                <div className="text-primary transition-transform duration-500 group-hover:rotate-12">
-                  <Gem size={32} strokeWidth={1.5} />
-                </div>
-                <h2 className={`font-serif text-2xl font-bold tracking-tight transition-colors ${isScrolled || location.pathname === '/portfolio' ? 'text-background-dark' : 'text-background-dark md:text-white'}`}>
-                  <span className={location.pathname === '/portfolio' || isScrolled ? 'text-background-dark' : 'text-white mix-blend-difference'}>Vinity</span>
-                </h2>
-              </>
-            )}
-          </Link>
+        <div className="max-w-7xl mx-auto px-6 flex items-center">
+          {/* Logo Container */}
+          <div className="flex-1 flex justify-start">
+            <Link to="/" className="flex items-center gap-2 group">
+              {settings.header_logo && !logoError ? (
+                <img
+                  src={settings.header_logo}
+                  alt="Vinity Logo"
+                  className="h-10 w-auto object-contain"
+                  onError={() => setLogoError(true)}
+                />
+              ) : (
+                <>
+                  <div className="text-primary transition-transform duration-500 group-hover:rotate-12">
+                    <Gem size={32} strokeWidth={1.5} />
+                  </div>
+                  <h2 className={`font-serif text-2xl font-bold tracking-tight transition-colors ${isScrolled || location.pathname === '/portfolio' ? 'text-background-dark' : 'text-background-dark md:text-white'}`}>
+                    <span className={location.pathname === '/portfolio' || isScrolled ? 'text-background-dark' : 'text-white mix-blend-difference'}>Vinity</span>
+                  </h2>
+                </>
+              )}
+            </Link>
+          </div>
 
-          {/* Desktop Nav */}
+          {/* Desktop Nav (Centered) */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
@@ -93,7 +96,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             ))}
           </nav>
 
-          <div className="flex items-center gap-4">
+          {/* Actions Container */}
+          <div className="flex-1 flex items-center justify-end gap-4">
             <Button variant="primary" className="hidden sm:flex py-2 px-6 text-sm">
               Agendar Consultoria
             </Button>
