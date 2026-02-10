@@ -38,9 +38,9 @@ const Login = () => {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(0,77,77,0.05),transparent_50%)]" />
 
             <div className="w-full max-w-md relative z-10">
-                <Reveal direction="down">
-                    <div className="text-center mb-10">
-                        <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-white shadow-xl shadow-primary/10 text-primary mb-6">
+                <Reveal direction="down" width="100%">
+                    <div className="text-center mb-10 w-full">
+                        <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-white shadow-xl shadow-primary/10 text-primary mb-6 mx-auto">
                             <Gem size={40} strokeWidth={1.5} />
                         </div>
                         <h1 className="font-serif text-3xl font-bold text-background-dark">Acesso Restrito</h1>
@@ -48,7 +48,7 @@ const Login = () => {
                     </div>
                 </Reveal>
 
-                <Reveal delay={0.2}>
+                <Reveal delay={0.2} width="100%">
                     <div className="bg-white/80 backdrop-blur-xl p-8 rounded-[2rem] shadow-2xl border border-white shadow-primary/5">
                         <form onSubmit={handleLogin} className="space-y-6">
                             {error && (
@@ -93,16 +93,17 @@ const Login = () => {
                                 variant="primary"
                                 className="w-full py-4 rounded-2xl text-base shadow-xl shadow-primary/20"
                                 disabled={loading}
+                                icon={!loading && <LogIn size={20} />}
                             >
-                                {loading ? 'Verificando...' : <><LogIn size={20} /> Acessar Painel</>}
+                                {loading ? 'Verificando...' : 'Acessar Painel'}
                             </Button>
                         </form>
                     </div>
                 </Reveal>
 
-                <Reveal delay={0.4}>
+                <Reveal delay={0.4} width="100%">
                     <div className="text-center mt-8">
-                        <a href="/" className="text-gray-400 hover:text-primary text-xs font-bold uppercase tracking-widest transition-colors">
+                        <a href="/" className="text-gray-400 hover:text-primary text-xs font-bold uppercase tracking-widest transition-colors inline-block">
                             Voltar para o site
                         </a>
                     </div>
