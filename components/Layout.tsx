@@ -25,22 +25,27 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   }, [location.pathname]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('/#')) {
-      const id = href.replace('/#', '');
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const id = href.replace('#', '');
       const element = document.getElementById(id);
 
-      if (location.pathname === '/' && element) {
-        e.preventDefault();
-        element.scrollIntoView({ behavior: 'smooth' });
+      if (location.pathname === '/') {
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        // If not on home, go home first with the anchor
+        window.location.href = '/' + href;
       }
       setMobileMenuOpen(false);
     }
   };
 
   const navLinks = [
-    { name: 'Serviços', href: '/#servicos' },
-    { name: 'Portfólio', href: '/#portfolio' },
-    { name: 'Depoimentos', href: '/#depoimentos' },
+    { name: 'Serviços', href: '#servicos' },
+    { name: 'Portfólio', href: '#portfolio' },
+    { name: 'Depoimentos', href: '#depoimentos' },
   ];
 
   return (
@@ -150,9 +155,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           <div>
             <h4 className="text-white font-bold mb-6 font-serif">Navegação</h4>
             <ul className="flex flex-col gap-3 text-sm">
-              <li><a href="/#servicos" className="hover:text-primary transition-colors">Serviços</a></li>
-              <li><a href="/#portfolio" className="hover:text-primary transition-colors">Portfólio</a></li>
-              <li><a href="/#depoimentos" className="hover:text-primary transition-colors">Depoimentos</a></li>
+              <li><a href="#servicos" onClick={(e) => handleNavClick(e, '#servicos')} className="hover:text-primary transition-colors">Serviços</a></li>
+              <li><a href="#portfolio" onClick={(e) => handleNavClick(e, '#portfolio')} className="hover:text-primary transition-colors">Portfólio</a></li>
+              <li><a href="#depoimentos" onClick={(e) => handleNavClick(e, '#depoimentos')} className="hover:text-primary transition-colors">Depoimentos</a></li>
             </ul>
           </div>
           <div>
