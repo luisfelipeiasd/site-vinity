@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageCircle, X, Send } from 'lucide-react';
+import { X, Send } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export const WhatsAppWidget = () => {

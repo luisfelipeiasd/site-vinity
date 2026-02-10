@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { PlayCircle, Diamond, CheckCircle2, BookOpen, ChevronLeft, ChevronRight, Video, Palette, Globe, TrendingUp, Play, ArrowRight, MessageCircle } from 'lucide-react';
+import { Diamond, CheckCircle2, BookOpen, ChevronLeft, ChevronRight, Video, Palette, Globe, TrendingUp, Play, ArrowRight, MessageCircle } from 'lucide-react';
 import { Reveal } from '../components/ui/Reveal';
 import { Button } from '../components/ui/Button';
 import { IMAGES, PROJECTS, SERVICES, TESTIMONIALS } from '../constants';

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import {
-    LayoutDashboard,
     Image as ImageIcon,
     Video,
     Users,
