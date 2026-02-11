@@ -19,7 +19,7 @@ export const PROJECTS: Project[] = [
     title: 'Clínica Lumini',
     category: 'Vídeos Institucionais',
     tag: 'Cinematic Tour',
-    image: IMAGES.PORTFOLIO_CLINIC,
+    image_url: IMAGES.PORTFOLIO_CLINIC,
     type: 'video',
     aspect: 'vertical'
   },
@@ -28,7 +28,7 @@ export const PROJECTS: Project[] = [
     title: 'Dr. Ricardo Silva',
     category: 'Fotografia Editorial',
     tag: 'Editorial',
-    image: IMAGES.PORTFOLIO_DOCTOR,
+    image_url: IMAGES.PORTFOLIO_DOCTOR,
     type: 'image',
     aspect: 'horizontal'
   },
@@ -37,7 +37,7 @@ export const PROJECTS: Project[] = [
     title: 'Laser Lavieen',
     category: 'Reels & Social',
     tag: 'Reels Estratégico',
-    image: IMAGES.PORTFOLIO_PRODUCT,
+    image_url: IMAGES.PORTFOLIO_PRODUCT,
     type: 'video',
     aspect: 'vertical'
   },
@@ -46,7 +46,7 @@ export const PROJECTS: Project[] = [
     title: 'Espaço Vitalis',
     category: 'Branding & Design',
     tag: 'Arquitetura',
-    image: IMAGES.PORTFOLIO_RECEPTION,
+    image_url: IMAGES.PORTFOLIO_RECEPTION,
     type: 'image',
     aspect: 'square'
   },
@@ -55,7 +55,7 @@ export const PROJECTS: Project[] = [
     title: 'Hospital Santa Clara',
     category: 'Vídeos Institucionais',
     tag: 'Institucional',
-    image: IMAGES.SERVICE_VIDEO,
+    image_url: IMAGES.SERVICE_VIDEO,
     type: 'video',
     aspect: 'horizontal'
   },
@@ -64,7 +64,7 @@ export const PROJECTS: Project[] = [
     title: 'Harmonização Facial',
     category: 'Reels & Social',
     tag: 'Reels Viral',
-    image: IMAGES.PORTFOLIO_LAPTOP,
+    image_url: IMAGES.PORTFOLIO_LAPTOP,
     type: 'video',
     aspect: 'vertical'
   },
@@ -74,7 +74,34 @@ export const PROJECTS: Project[] = [
     title: 'Web Design Moderno',
     category: 'Websites',
     tag: 'UX/UI',
-    image: IMAGES.SERVICE_STRATEGY,
+    image_url: IMAGES.SERVICE_STRATEGY,
+    type: 'image',
+    aspect: 'horizontal'
+  },
+  {
+    id: '8',
+    title: 'Campanha Verão 2025',
+    category: 'Vídeos Comerciais',
+    tag: 'Fashion Film',
+    image_url: IMAGES.SERVICE_VIDEO,
+    type: 'video',
+    aspect: 'vertical'
+  },
+  {
+    id: '9',
+    title: 'Identidade Visual TechFlow',
+    category: 'Branding',
+    tag: 'Corporativo',
+    image_url: 'https://images.unsplash.com/photo-1600607686527-6fb886090705?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    type: 'image',
+    aspect: 'square'
+  },
+  {
+    id: '10',
+    title: 'E-commerce Lux',
+    category: 'Web Design',
+    tag: 'UI/UX',
+    image_url: 'https://images.unsplash.com/photo-1547658719-da2b51169132?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     type: 'image',
     aspect: 'horizontal'
   }
@@ -119,6 +146,6 @@ export const TESTIMONIALS: Testimonial[] = [
     quote: "O trabalho da Vinity foi um divisor de águas para minha clínica. O vídeo institucional capturou a essência do nosso atendimento de uma forma que eu nunca imaginei ser possível.",
     author: "Dra. Juliana Mendes",
     role: "Dermatologista - Clínica Luminé",
-    image: IMAGES.TESTIMONIAL_USER
+    image_url: IMAGES.TESTIMONIAL_USER
   }
 ];
