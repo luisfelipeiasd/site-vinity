@@ -197,13 +197,34 @@ const SmartUpload: React.FC<SmartUploadProps> = ({ label, value, onChange, hint,
         }
     };
 
+    const [progress, setProgress] = useState(0);
+
     const handleFileUpload = async (file: File) => {
         setIsUploading(true);
+        setProgress(0);
+
+        // Simular progresso
+        const interval = setInterval(() => {
+            setProgress((prev) => {
+                if (prev >= 90) {
+                    return 90;
+                }
+                return prev + 10;
+            });
+        }, 300);
+
         try {
             const url = await uploadFile(file);
-            onChange(url);
-            setMode('link');
+            setProgress(100);
+            clearInterval(interval);
+            setTimeout(() => {
+                onChange(url);
+                setMode('link');
+                setProgress(0);
+            }, 500);
         } catch (err) {
+            clearInterval(interval);
+            setProgress(0);
             alert(`Erro no upload: ${(err as any).message || JSON.stringify(err)}`);
         } finally {
             setIsUploading(false);
@@ -287,6 +308,21 @@ const SmartUpload: React.FC<SmartUploadProps> = ({ label, value, onChange, hint,
                         >
                             {isUploading ? 'Processando...' : <><Upload size={16} /> Selecionar Arquivo</>}
                         </label>
+
+                        {isUploading && (
+                            <div className="w-full max-w-[200px] mx-auto mt-4 px-2">
+                                <div className="flex justify-between text-[10px] font-bold text-gray-400 mb-1">
+                                    <span>Enviando...</span>
+                                    <span>{progress}%</span>
+                                </div>
+                                <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                    <div
+                                        className="h-full bg-primary transition-all duration-300 ease-out"
+                                        style={{ width: `${progress}%` }}
+                                    />
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
 
@@ -842,27 +878,69 @@ const UploadsGallery = () => {
         }
     };
 
+    const formatBytes = (bytes: number, decimals = 2) => {
+        if (!+bytes) return '0 Bytes';
+        const k = 1024;
+        const dm = decimals < 0 ? 0 : decimals;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+    };
+
+    const totalSize = files.reduce((acc, file) => acc + (file.size || 0), 0);
+    const MAX_SIZE = 500 * 1024 * 1024; // 500MB Limit (Simulated)
+    const usagePercent = Math.min((totalSize / MAX_SIZE) * 100, 100);
+
     return (
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {files.map((file) => (
-                <div key={file.id} className="group relative aspect-square bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
-                    {file.type?.includes('video') ? (
-                        <div className="w-full h-full flex items-center justify-center bg-primary/5 text-primary"><Video size={32} /></div>
-                    ) : (
-                        <img src={file.url} className="w-full h-full object-cover" alt="" />
-                    )}
-                    <div className="absolute inset-0 bg-background-dark/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-3 text-center">
-                        <p className="text-[10px] text-white font-bold truncate w-full mb-3">{file.name}</p>
-                        <div className="flex gap-3">
-                            <button onClick={() => window.open(file.url, '_blank')} className="text-white hover:text-primary"><FolderOpen size={18} /></button>
-                            <button onClick={() => deleteFile(file.id)} className="text-white hover:text-red-400"><Trash2 size={18} /></button>
+        <div className="space-y-8">
+            {/* Storage Quota Card */}
+            <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-10">
+                    <FolderOpen size={100} className="text-primary" />
+                </div>
+                <div className="relative z-10">
+                    <h3 className="font-bold text-background-dark text-lg mb-1">Armazenamento do Banco de Dados</h3>
+                    <p className="text-xs text-gray-400 mb-6">Gerencie o espaço utilizado pelos seus arquivos de mídia.</p>
+
+                    <div className="flex justify-between items-end mb-2">
+                        <div>
+                            <span className="text-3xl font-serif font-bold text-primary">{formatBytes(totalSize)}</span>
+                            <span className="text-xs text-gray-400 font-bold uppercase tracking-wider ml-2">Usados</span>
                         </div>
+                        <span className="text-xs font-bold text-gray-400">{usagePercent.toFixed(1)}% de {formatBytes(MAX_SIZE)}</span>
+                    </div>
+
+                    <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+                        <div
+                            className={`h-full transition-all duration-1000 ease-out ${usagePercent > 90 ? 'bg-red-500' : 'bg-primary'}`}
+                            style={{ width: `${usagePercent}%` }}
+                        />
                     </div>
                 </div>
-            ))}
-            <div className="aspect-square border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-400 p-4 text-center">
-                <Upload size={24} className="mb-2" />
-                <span className="text-[10px] font-bold uppercase tracking-wider">Use o SmartUpload em outras abas</span>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                {files.map((file) => (
+                    <div key={file.id} className="group relative aspect-square bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
+                        {file.type?.includes('video') ? (
+                            <div className="w-full h-full flex items-center justify-center bg-primary/5 text-primary"><Video size={32} /></div>
+                        ) : (
+                            <img src={file.url} className="w-full h-full object-cover" alt="" />
+                        )}
+                        <div className="absolute inset-0 bg-background-dark/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-3 text-center">
+                            <p className="text-[10px] text-white font-bold truncate w-full mb-3">{file.name}</p>
+                            <p className="text-[9px] text-white/60 mb-3">{formatBytes(file.size)}</p>
+                            <div className="flex gap-3">
+                                <button onClick={() => window.open(file.url, '_blank')} className="text-white hover:text-primary"><FolderOpen size={18} /></button>
+                                <button onClick={() => deleteFile(file.id)} className="text-white hover:text-red-400"><Trash2 size={18} /></button>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+                <div className="aspect-square border-2 border-dashed border-gray-200 rounded-2xl flex flex-col items-center justify-center text-gray-400 p-4 text-center">
+                    <Upload size={24} className="mb-2" />
+                    <span className="text-[10px] font-bold uppercase tracking-wider">Use o SmartUpload em outras abas</span>
+                </div>
             </div>
         </div>
     );
