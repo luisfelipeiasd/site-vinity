@@ -660,9 +660,24 @@ const PortfolioSection = () => {
                     <div key={item.id} className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-gray-100 group hover:shadow-md transition-all">
                         <div className="w-16 h-16 rounded-xl bg-gray-100 overflow-hidden relative">
                             {item.type === 'video' ? (
-                                <div className="w-full h-full flex items-center justify-center bg-primary/10 text-primary"><Video size={20} /></div>
+                                <video
+                                    src={item.image_url}
+                                    className="w-full h-full object-cover"
+                                    muted
+                                    loop
+                                    playsInline
+                                    onMouseOver={e => e.currentTarget.play()}
+                                    onMouseOut={e => e.currentTarget.pause()}
+                                />
                             ) : (
-                                <img src={item.image_url} className="w-full h-full object-cover" alt="" />
+                                <img
+                                    src={item.image_url}
+                                    className="w-full h-full object-cover"
+                                    alt=""
+                                    onError={(e) => {
+                                        (e.target as HTMLImageElement).src = 'https://via.placeholder.com/150?text=Erro';
+                                    }}
+                                />
                             )}
                         </div>
                         <div className="flex-grow">
