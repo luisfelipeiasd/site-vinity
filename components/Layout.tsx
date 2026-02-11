@@ -70,7 +70,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <img
                   src={settings.header_logo}
                   alt="Vinity Logo"
-                  className="h-[80px] w-auto max-w-[280px] object-contain transition-all duration-300"
+                  className="h-[120px] w-auto max-w-[400px] object-contain transition-all duration-300"
                   style={(isScrolled || mobileMenuOpen) ? { filter: 'brightness(0) saturate(100%) invert(70%) sepia(59%) saturate(452%) hue-rotate(357deg) brightness(97%) contrast(93%)' } : {}}
                   onError={() => setLogoError(true)}
                 />
@@ -140,7 +140,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <img
                   src={settings.footer_logo || settings.header_logo}
                   alt="Vinity Logo Footer"
-                  className="h-[60px] w-auto max-w-[200px] object-contain"
+                  className="h-[90px] w-auto max-w-[300px] object-contain"
                   onError={() => setLogoError(true)}
                 />
               )}
