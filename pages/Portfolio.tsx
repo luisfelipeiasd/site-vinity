@@ -85,11 +85,26 @@ const Portfolio = () => {
                   onClick={() => setSelectedProject(project)}
                   aria-label={`Ver detalhes do projeto ${project.title}`}
                 >
-                  <img
-                    src={project.image_url}
-                    alt={project.title}
-                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+                  {project.type === 'video' ? (
+                    <video
+                      src={project.image_url}
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                      onMouseOver={(e) => e.currentTarget.play()}
+                      onMouseOut={(e) => e.currentTarget.pause()}
+                    />
+                  ) : (
+                    <img
+                      src={project.image_url}
+                      alt={project.title}
+                      className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x300?text=Imagem+Indisponível';
+                      }}
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                   <div className="absolute inset-0 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
@@ -141,17 +156,24 @@ const Portfolio = () => {
             </button>
 
             {/* Media Area */}
-            <div className={`relative ${selectedProject.aspect === 'vertical' ? 'w-full md:w-1/2 aspect-[9/16]' : 'w-full aspect-video'} bg-gray-900`}>
-              <img
-                src={selectedProject.image_url}
-                alt={selectedProject.title}
-                className="w-full h-full object-cover opacity-80"
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <button aria-label="Reproduzir vídeo do projeto" className="w-20 h-20 bg-white/10 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center text-white hover:scale-110 hover:bg-primary transition-all duration-300 group shadow-2xl cursor-pointer">
-                  <Play size={32} fill="currentColor" className="ml-1" />
-                </button>
-              </div>
+            <div className={`relative ${selectedProject.aspect === 'vertical' ? 'w-full md:w-1/2 aspect-[9/16]' : 'w-full aspect-video'} bg-gray-900 flex items-center justify-center`}>
+              {selectedProject.type === 'video' ? (
+                <video
+                  src={selectedProject.image_url}
+                  controls
+                  autoPlay
+                  className="w-full h-full object-contain"
+                />
+              ) : (
+                <img
+                  src={selectedProject.image_url}
+                  alt={selectedProject.title}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = 'https://via.placeholder.com/800x600?text=Imagem+Indisponível';
+                  }}
+                />
+              )}
             </div>
 
             {/* Content Area */}
