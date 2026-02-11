@@ -57,9 +57,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     <div className="relative flex min-h-screen w-full flex-col font-display">
       {/* Header */}
       <header
-        className={`fixed left-0 right-0 z-50 transition-all duration-500 ${(isScrolled || mobileMenuOpen)
-          ? 'top-4 mx-auto max-w-4xl rounded-full bg-white/90 backdrop-blur-xl border border-gray-200 py-1 shadow-lg'
-          : 'top-0 bg-transparent border-b border-transparent py-1.5'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${(isScrolled || mobileMenuOpen)
+          ? 'bg-white/85 backdrop-blur-xl border-gray-200 py-1 shadow-sm'
+          : 'bg-transparent border-transparent py-1.5'
           }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center">
@@ -70,7 +70,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <img
                   src={settings.header_logo}
                   alt="Vinity Logo"
-                  className="h-[120px] w-auto max-w-[400px] object-contain transition-all duration-300"
+                  className={`w-auto max-w-[400px] object-contain transition-all duration-300 ${isScrolled || mobileMenuOpen ? 'h-[115px]' : 'h-[120px]'}`}
                   style={(isScrolled || mobileMenuOpen) ? { filter: 'brightness(0) saturate(100%) invert(70%) sepia(59%) saturate(452%) hue-rotate(357deg) brightness(97%) contrast(93%)' } : {}}
                   onError={() => setLogoError(true)}
                 />
