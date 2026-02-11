@@ -57,7 +57,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     <div className="relative flex min-h-screen w-full flex-col font-display">
       {/* Header */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${isScrolled
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${(isScrolled || mobileMenuOpen)
           ? 'bg-white/90 backdrop-blur-xl border-gray-200 py-3 shadow-sm'
           : 'bg-transparent border-transparent py-6'
           }`}
@@ -70,7 +70,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <img
                   src={settings.header_logo}
                   alt="Vinity Logo"
-                  className="h-10 w-auto object-contain"
+                  className="h-[80px] w-auto max-w-[280px] object-contain transition-all duration-300"
+                  style={(isScrolled || mobileMenuOpen) ? { filter: 'brightness(0) saturate(100%) invert(70%) sepia(59%) saturate(452%) hue-rotate(357deg) brightness(97%) contrast(93%)' } : {}}
                   onError={() => setLogoError(true)}
                 />
               ) : (
@@ -78,8 +79,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                   <div className="text-primary transition-transform duration-500 group-hover:rotate-12">
                     <Gem size={32} strokeWidth={1.5} />
                   </div>
-                  <h2 className={`font-serif text-2xl font-bold tracking-tight transition-colors ${isScrolled || location.pathname === '/portfolio' ? 'text-background-dark' : 'text-background-dark md:text-white'}`}>
-                    <span className={location.pathname === '/portfolio' || isScrolled ? 'text-background-dark' : 'text-white mix-blend-difference'}>Vinity</span>
+                  <h2 className={`font-serif text-2xl font-bold tracking-tight transition-colors ${(isScrolled || mobileMenuOpen) ? 'text-primary' : (location.pathname === '/portfolio' ? 'text-background-dark' : 'text-background-dark md:text-white')}`}>
+                    <span className={(isScrolled || mobileMenuOpen) ? 'text-primary' : (location.pathname === '/portfolio' ? 'text-background-dark' : 'text-white mix-blend-difference')}>Vinity</span>
                   </h2>
                 </>
               )}
@@ -93,7 +94,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`text-sm font-medium transition-colors hover:text-primary ${(isScrolled || location.pathname !== '/') ? 'text-background-dark/80' : 'text-white/90 hover:text-white'
+                className={`text-sm font-medium transition-colors hover:text-primary ${((isScrolled || mobileMenuOpen) || location.pathname !== '/') ? 'text-background-dark/80' : 'text-white/90 hover:text-white'
                   }`}
               >
                 {link.name}
@@ -148,7 +149,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <img
                   src={settings.footer_logo || settings.header_logo}
                   alt="Vinity Logo Footer"
-                  className="h-10 w-auto object-contain"
+                  className="h-[60px] w-auto max-w-[200px] object-contain"
                   onError={() => setLogoError(true)}
                 />
               ) : (
