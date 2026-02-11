@@ -58,7 +58,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       {/* Header */}
       <header
         className={`fixed left-0 right-0 z-50 transition-all duration-500 ${(isScrolled || mobileMenuOpen)
-          ? 'top-4 mx-auto max-w-5xl rounded-full bg-white/90 backdrop-blur-xl border border-gray-200 py-1 shadow-lg'
+          ? 'top-4 mx-auto max-w-4xl rounded-full bg-white/90 backdrop-blur-xl border border-gray-200 py-1 shadow-lg'
           : 'top-0 bg-transparent border-b border-transparent py-1.5'
           }`}
       >
