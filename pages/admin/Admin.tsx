@@ -184,6 +184,14 @@ const SmartUpload: React.FC<SmartUploadProps> = ({ label, value, onChange, hint,
     const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files.length > 0) {
             const file = e.target.files[0];
+
+            // Check file size (50MB limit by default for Supabase Free Tier)
+            const MAX_SIZE_MB = 50;
+            if (file.size > MAX_SIZE_MB * 1024 * 1024) {
+                alert(`O arquivo excede o limite de ${MAX_SIZE_MB}MB. Por favor, comprima o vídeo ou aumente o limite no painel do Supabase.`);
+                return;
+            }
+
             if (type === 'video') {
                 // Direct upload for video
                 handleFileUpload(file);
