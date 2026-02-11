@@ -185,18 +185,29 @@ const Home = () => {
             {featuredProjects.map((project, index) => (
               <Reveal key={project.id} delay={index * 0.1} width="100%">
                 <Link to="/portfolio" className={`relative group block break-inside-avoid rounded-3xl overflow-hidden shadow-lg cursor-pointer ${getAspectClass(project.aspect)}`}>
-                  <img
-                    src={project.image_url}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
+                  {project.type === 'video' ? (
+                    <video
+                      src={project.image_url}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                    />
+                  ) : (
+                    <img
+                      src={project.image_url}
+                      alt={project.title}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                     <div className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transform scale-0 group-hover:scale-100 transition-transform duration-500 delay-100">
                       <Play size={32} fill="currentColor" />
                     </div>
                   </div>
                   <div className="absolute bottom-0 left-0 p-8 w-full bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75">
-                    <span className="text-primary text-xs font-bold tracking-wider uppercase">{project.tag}</span>
+                    <span className="text-primary text-xs font-bold tracking-wider uppercase">{project.tag || project.category}</span>
                     <h3 className="text-white font-serif text-2xl mt-1">{project.title}</h3>
                   </div>
                 </Link>
