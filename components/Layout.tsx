@@ -66,7 +66,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           {/* Logo Container */}
           <div className="flex-1 flex justify-start">
             <Link to="/" className="flex items-center gap-2 group">
-              {settings.header_logo && !logoError ? (
+              {settings.header_logo && !logoError && (
                 <img
                   src={settings.header_logo}
                   alt="Vinity Logo"
@@ -74,15 +74,6 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                   style={(isScrolled || mobileMenuOpen) ? { filter: 'brightness(0) saturate(100%) invert(70%) sepia(59%) saturate(452%) hue-rotate(357deg) brightness(97%) contrast(93%)' } : {}}
                   onError={() => setLogoError(true)}
                 />
-              ) : (
-                <>
-                  <div className="text-primary transition-transform duration-500 group-hover:rotate-12">
-                    <Gem size={32} strokeWidth={1.5} />
-                  </div>
-                  <h2 className={`font-serif text-2xl font-bold tracking-tight transition-colors ${(isScrolled || mobileMenuOpen) ? 'text-primary' : (location.pathname === '/portfolio' ? 'text-background-dark' : 'text-background-dark md:text-white')}`}>
-                    <span className={(isScrolled || mobileMenuOpen) ? 'text-primary' : (location.pathname === '/portfolio' ? 'text-background-dark' : 'text-white mix-blend-difference')}>Vinity</span>
-                  </h2>
-                </>
               )}
             </Link>
           </div>
@@ -145,18 +136,13 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-2 text-white">
-              {settings.header_logo && !logoError ? (
+              {settings.header_logo && !logoError && (
                 <img
                   src={settings.footer_logo || settings.header_logo}
                   alt="Vinity Logo Footer"
                   className="h-[60px] w-auto max-w-[200px] object-contain"
                   onError={() => setLogoError(true)}
                 />
-              ) : (
-                <>
-                  <Gem className="text-primary" />
-                  <span className="font-serif font-bold text-2xl">Vinity</span>
-                </>
               )}
             </div>
             <p className="text-sm leading-relaxed">
