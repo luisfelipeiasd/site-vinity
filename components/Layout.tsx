@@ -11,7 +11,7 @@ const handleWhatsAppClick = () => {
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { settings } = useSettings();
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(() => typeof window !== 'undefined' ? window.scrollY > 50 : false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
   const location = useLocation();
