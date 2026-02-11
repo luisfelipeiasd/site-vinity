@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     Image as ImageIcon,
     Video,
@@ -29,6 +29,9 @@ import { uploadFile, getGalleryFiles } from '../../lib/storage';
 import { useSettings } from '../../context/SettingsContext';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../lib/supabase';
+import Cropper from 'react-easy-crop';
+import getCroppedImg from '../../lib/imageUtils';
+import 'react-easy-crop/react-easy-crop.css';
 
 const AdminDashboard = () => {
     const [activeTab, setActiveTab] = useState('settings');
@@ -154,16 +157,47 @@ const SmartUpload: React.FC<SmartUploadProps> = ({ label, value, onChange, hint,
     const [isUploading, setIsUploading] = useState(false);
     const [gallery, setGallery] = useState<any[]>([]);
 
+    // Crop State
+    const [imageSrc, setImageSrc] = useState<string | null>(null);
+    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [croppedAreaPixels, setCroppedAreaPixels] = useState<any>(null);
+
     useEffect(() => {
         if (mode === 'gallery') {
             getGalleryFiles().then(setGallery);
         }
     }, [mode]);
 
-    const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
+    const onCropComplete = useCallback((croppedArea: any, croppedAreaPixels: any) => {
+        setCroppedAreaPixels(croppedAreaPixels);
+    }, []);
 
+    const readFile = (file: File) => {
+        return new Promise<string>((resolve) => {
+            const reader = new FileReader();
+            reader.addEventListener('load', () => resolve(reader.result as string), false);
+            reader.readAsDataURL(file);
+        });
+    };
+
+    const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const file = e.target.files[0];
+            if (type === 'video') {
+                // Direct upload for video
+                handleFileUpload(file);
+            } else {
+                // Crop flow for image
+                const imageDataUrl = await readFile(file);
+                setImageSrc(imageDataUrl);
+                setCrop({ x: 0, y: 0 });
+                setZoom(1);
+            }
+        }
+    };
+
+    const handleFileUpload = async (file: File) => {
         setIsUploading(true);
         try {
             const url = await uploadFile(file);
@@ -172,6 +206,22 @@ const SmartUpload: React.FC<SmartUploadProps> = ({ label, value, onChange, hint,
         } catch (err) {
             alert('Erro no upload. Verifique as configurações do Supabase Storage.');
         } finally {
+            setIsUploading(false);
+        }
+    };
+
+    const handleSaveCrop = async () => {
+        if (!imageSrc) return;
+        setIsUploading(true);
+        try {
+            const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels);
+            if (croppedImage) {
+                await handleFileUpload(croppedImage);
+                setImageSrc(null); // Close cropper
+            }
+        } catch (e) {
+            console.error(e);
+            alert('Erro ao processar o corte da imagem.');
             setIsUploading(false);
         }
     };
@@ -211,7 +261,7 @@ const SmartUpload: React.FC<SmartUploadProps> = ({ label, value, onChange, hint,
                 </button>
             </div>
 
-            <div className="min-h-[80px] border border-gray-100 rounded-2xl bg-white p-3">
+            <div className="min-h-[80px] border border-gray-100 rounded-2xl bg-white p-3 relative">
                 {mode === 'link' && (
                     <input
                         type="text"
@@ -228,14 +278,14 @@ const SmartUpload: React.FC<SmartUploadProps> = ({ label, value, onChange, hint,
                             type="file"
                             id={`upload-${label}`}
                             className="hidden"
-                            onChange={handleFileUpload}
+                            onChange={handleFileSelect}
                             accept={type === 'video' ? 'video/*' : 'image/*'}
                         />
                         <label
                             htmlFor={`upload-${label}`}
                             className="cursor-pointer inline-flex items-center gap-2 text-primary font-bold text-xs bg-primary/5 px-5 py-2.5 rounded-xl hover:bg-primary/10 transition-all"
                         >
-                            {isUploading ? 'Subindo...' : <><Upload size={16} /> Selecionar Arquivo</>}
+                            {isUploading ? 'Processando...' : <><Upload size={16} /> Selecionar Arquivo</>}
                         </label>
                     </div>
                 )}
@@ -260,7 +310,7 @@ const SmartUpload: React.FC<SmartUploadProps> = ({ label, value, onChange, hint,
                     </div>
                 )}
 
-                {value && (
+                {value && !imageSrc && (
                     <div className="mt-3 p-2 bg-gray-50 rounded-xl border border-gray-100 flex items-center gap-3">
                         <div className="w-10 h-10 rounded-lg bg-white overflow-hidden border border-gray-200 flex items-center justify-center">
                             {type === 'video' ? <Video size={16} className="text-primary" /> : <img src={value} className="w-full h-full object-cover" alt="" />}
@@ -272,6 +322,52 @@ const SmartUpload: React.FC<SmartUploadProps> = ({ label, value, onChange, hint,
                     </div>
                 )}
             </div>
+
+            {/* CROPPER MODAL / OVERLAY */}
+            {imageSrc && (
+                <div className="fixed inset-0 z-50 bg-black/80 flex flex-col items-center justify-center p-4">
+                    <div className="bg-white rounded-3xl overflow-hidden w-full max-w-2xl flex flex-col max-h-[90vh]">
+                        <div className="p-4 border-b border-gray-100 flex justify-between items-center">
+                            <h3 className="font-bold text-background-dark">Ajustar Imagem</h3>
+                            <button onClick={() => setImageSrc(null)} className="p-2 hover:bg-gray-100 rounded-full"><XCircle size={20} /></button>
+                        </div>
+                        <div className="relative h-[400px] w-full bg-gray-900">
+                            <Cropper
+                                image={imageSrc}
+                                crop={crop}
+                                zoom={zoom}
+                                aspect={1}
+                                onCropChange={setCrop}
+                                onCropComplete={onCropComplete}
+                                onZoomChange={setZoom}
+                            />
+                        </div>
+                        <div className="p-6 space-y-6">
+                            <div className="flex items-center gap-4">
+                                <span className="text-xs font-bold text-gray-500">Zoom</span>
+                                <input
+                                    type="range"
+                                    value={zoom}
+                                    min={1}
+                                    max={3}
+                                    step={0.1}
+                                    aria-labelledby="Zoom"
+                                    onChange={(e) => setZoom(Number(e.target.value))}
+                                    className="w-full h-1 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary"
+                                />
+                            </div>
+                            <div className="flex gap-4">
+                                <Button onClick={handleSaveCrop} className="flex-1" disabled={isUploading}>
+                                    {isUploading ? 'Processando...' : <><CheckCircle size={18} /> Confirmar Corte</>}
+                                </Button>
+                                <Button variant="secondary" onClick={() => setImageSrc(null)} className="flex-1" disabled={isUploading}>
+                                    Cancelar
+                                </Button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

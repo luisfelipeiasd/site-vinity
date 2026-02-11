@@ -236,31 +236,31 @@ const Home = () => {
 
           {mainTestimonial && (
             <Reveal width="100%">
-              <div className="relative bg-white p-8 md:p-20 rounded-3xl shadow-2xl text-center">
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg shadow-primary/30">
-                  <span className="text-4xl font-serif">"</span>
+              <div className="relative bg-white/80 backdrop-blur-sm p-8 md:p-12 rounded-[2rem] shadow-xl shadow-gray-200/50 border border-white/50 text-center max-w-4xl mx-auto transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-primary w-12 h-12 rounded-full flex items-center justify-center shadow-lg shadow-gray-200 border border-gray-100">
+                  <span className="text-2xl font-serif">"</span>
                 </div>
 
-                <p className="font-serif text-xl md:text-3xl italic text-background-dark leading-relaxed mb-10">
+                <p className="font-serif text-lg md:text-2xl font-light text-gray-600 leading-relaxed mb-8 italic tracking-wide">
                   {mainTestimonial.quote}
                 </p>
 
-                <div className="flex items-center justify-center gap-5">
-                  <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-primary/20">
-                    <img src={mainTestimonial.image_url} alt={mainTestimonial.author} className="w-full h-full object-cover" />
+                <div className="flex items-center justify-center gap-4">
+                  <div className="w-12 h-12 rounded-full overflow-hidden border border-gray-200 shadow-sm relative group">
+                    <img src={mainTestimonial.image_url} alt={mainTestimonial.author} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   </div>
                   <div className="text-left">
-                    <h4 className="font-bold text-background-dark text-base">{mainTestimonial.author}</h4>
-                    <p className="text-xs text-gray-500 uppercase tracking-wide">{mainTestimonial.role}</p>
+                    <h4 className="font-bold text-background-dark text-sm tracking-wide">{mainTestimonial.author}</h4>
+                    <p className="text-[10px] text-primary/80 uppercase tracking-widest font-medium">{mainTestimonial.role}</p>
                   </div>
                 </div>
 
                 {/* Slider Controls (Visual Only for now since we just show the first one) */}
-                <button aria-label="Depoimento anterior" className="absolute top-1/2 -left-6 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg hidden md:flex items-center justify-center text-background-dark hover:bg-primary hover:text-white transition-colors cursor-pointer">
-                  <ChevronLeft size={24} />
+                <button aria-label="Depoimento anterior" className="absolute top-1/2 -left-4 md:-left-12 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-md shadow-sm border border-white/50 hidden md:flex items-center justify-center text-gray-400 hover:text-primary hover:scale-110 transition-all cursor-pointer">
+                  <ChevronLeft size={18} />
                 </button>
-                <button aria-label="Próximo depoimento" className="absolute top-1/2 -right-6 -translate-y-1/2 w-12 h-12 rounded-full bg-white shadow-lg hidden md:flex items-center justify-center text-background-dark hover:bg-primary hover:text-white transition-colors cursor-pointer">
-                  <ChevronRight size={24} />
+                <button aria-label="Próximo depoimento" className="absolute top-1/2 -right-4 md:-right-12 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 backdrop-blur-md shadow-sm border border-white/50 hidden md:flex items-center justify-center text-gray-400 hover:text-primary hover:scale-110 transition-all cursor-pointer">
+                  <ChevronRight size={18} />
                 </button>
               </div>
             </Reveal>
