@@ -41,14 +41,14 @@ const Home = () => {
   return (
     <main className="flex-grow">
       {/* Hero Section */}
-      <section className="relative w-full h-[95vh] min-h-[600px] md:min-h-[850px] flex items-center justify-center overflow-hidden bg-background-dark pb-20 md:pb-40">
+      <section className="relative w-full h-[100vh] min-h-[700px] md:min-h-[900px] flex items-center justify-center overflow-hidden bg-background-dark pb-20 md:pb-40">
         <div
           className="absolute inset-0 z-0 bg-cover bg-center opacity-60 scale-105 animate-[kenburns_20s_infinite_alternate]"
           style={{ backgroundImage: `url('${settings.hero_banner || IMAGES.HERO}')` }}
         />
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-background-dark/90 via-background-dark/40 to-black/30" />
 
-        <div className="relative z-20 container mx-auto px-6 text-center text-white flex flex-col items-center gap-8 max-w-5xl pt-20">
+        <div className="relative z-20 container mx-auto px-6 text-center text-white flex flex-col items-center gap-8 max-w-5xl pt-40 md:pt-52">
 
           <Reveal delay={0.4}>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl font-medium leading-[1.1] mb-6 tracking-tight">
