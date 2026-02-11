@@ -136,49 +136,57 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
 
       {/* Footer */}
       <footer className="bg-background-dark text-white/60 py-16 border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
-          <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-2 text-white">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+          {/* Brand Column - Wider */}
+          <div className="md:col-span-5 flex flex-col gap-6">
+            <Link to="/" className="inline-block">
               {settings.header_logo && !logoError && (
                 <img
                   src={settings.footer_logo || settings.header_logo}
                   alt="Vinity Logo Footer"
-                  className="h-[90px] w-auto max-w-[300px] object-contain"
+                  className="h-[80px] w-auto max-w-[280px] object-contain"
                   onError={() => setLogoError(true)}
                 />
               )}
-            </div>
-            <p className="text-sm leading-relaxed">
+            </Link>
+            <p className="text-sm leading-relaxed text-white/60 max-w-sm">
               Produção audiovisual e branding para o mercado de saúde de alto padrão.
+              Transformamos sua autoridade em um legado visual inconfundível.
             </p>
           </div>
-          <div>
+
+          {/* Navigation - Compact */}
+          <div className="md:col-span-2 md:col-start-7">
             <h4 className="text-white font-bold mb-6 font-serif">Navegação</h4>
             <ul className="flex flex-col gap-3 text-sm">
-              <li><a href="#servicos" onClick={(e) => handleNavClick(e, '#servicos')} className="hover:text-primary transition-colors">Serviços</a></li>
-              <li><a href="#portfolio" onClick={(e) => handleNavClick(e, '#portfolio')} className="hover:text-primary transition-colors">Portfólio</a></li>
-              <li><a href="#depoimentos" onClick={(e) => handleNavClick(e, '#depoimentos')} className="hover:text-primary transition-colors">Depoimentos</a></li>
+              <li><a href="#servicos" onClick={(e) => handleNavClick(e, '#servicos')} className="hover:text-primary transition-colors block py-0.5">Serviços</a></li>
+              <li><a href="#portfolio" onClick={(e) => handleNavClick(e, '#portfolio')} className="hover:text-primary transition-colors block py-0.5">Portfólio</a></li>
+              <li><a href="#depoimentos" onClick={(e) => handleNavClick(e, '#depoimentos')} className="hover:text-primary transition-colors block py-0.5">Depoimentos</a></li>
             </ul>
           </div>
-          <div>
+
+          {/* Contact */}
+          <div className="md:col-span-2">
             <h4 className="text-white font-bold mb-6 font-serif">Contato</h4>
-            <ul className="flex flex-col gap-3 text-sm">
-              <li>contato@vinity.com.br</li>
-              <li>(11) 99999-9999</li>
+            <ul className="flex flex-col gap-3 text-sm text-white/60">
+              <li className="hover:text-white transition-colors cursor-default">contato@vinity.com.br</li>
+              <li className="hover:text-white transition-colors cursor-default">(11) 99999-9999</li>
               <li>São Paulo, SP</li>
             </ul>
           </div>
-          <div>
+
+          {/* Social - Right Aligned on Desktop */}
+          <div className="md:col-span-2">
             <h4 className="text-white font-bold mb-6 font-serif">Social</h4>
-            <div className="flex gap-4">
-              <a href="#" aria-label="Seguir no Instagram" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
-                <Instagram size={20} />
+            <div className="flex gap-3">
+              <a href="#" aria-label="Seguir no Instagram" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:border-primary hover:text-white transition-all group">
+                <Instagram size={18} className="group-hover:scale-110 transition-transform" />
               </a>
-              <a href="#" aria-label="Seguir no Facebook" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
-                <Facebook size={20} />
+              <a href="#" aria-label="Seguir no Facebook" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:border-primary hover:text-white transition-all group">
+                <Facebook size={18} className="group-hover:scale-110 transition-transform" />
               </a>
-              <a href="#" aria-label="Seguir no Twitter" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
-                <Twitter size={20} />
+              <a href="#" aria-label="Seguir no Twitter" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary hover:border-primary hover:text-white transition-all group">
+                <Twitter size={18} className="group-hover:scale-110 transition-transform" />
               </a>
             </div>
           </div>
