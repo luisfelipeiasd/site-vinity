@@ -58,8 +58,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       {/* Header */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${(isScrolled || mobileMenuOpen)
-          ? 'bg-white/90 backdrop-blur-xl border-gray-200 py-3 shadow-sm'
-          : 'bg-transparent border-transparent py-6'
+          ? 'bg-white/90 backdrop-blur-xl border-gray-200 py-1.5 shadow-sm'
+          : 'bg-transparent border-transparent py-3'
           }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center">
