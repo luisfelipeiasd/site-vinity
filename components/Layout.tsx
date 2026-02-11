@@ -5,9 +5,7 @@ import { Button } from './ui/Button';
 import { useSettings } from '../context/SettingsContext';
 import { WhatsAppWidget } from './WhatsAppWidget';
 
-const handleWhatsAppClick = () => {
-  window.open(`https://wa.me/5562984077910?text=${encodeURIComponent("Olá! Gostaria de agendar uma consultoria.")}`, '_blank');
-};
+
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { settings } = useSettings();
@@ -15,6 +13,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
   const location = useLocation();
+
+  const handleWhatsAppClick = () => {
+    window.open(`https://wa.me/5562984077910?text=${encodeURIComponent("Olá! Gostaria de agendar uma consultoria.")}`, '_blank');
+    setMobileMenuOpen(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,7 +57,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
   ];
 
   return (
-    <div className="relative flex min-h-screen w-full flex-col font-display">
+    <div className="relative flex min-h-screen w-full flex-col font-display overflow-x-hidden">
       {/* Header */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,shadow] duration-500 border-b ${(isScrolled || mobileMenuOpen)
@@ -65,7 +68,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
         <div className="max-w-7xl mx-auto px-6 flex items-center">
           {/* Logo Container */}
           <div className="flex-1 flex justify-start">
-            <Link to="/" className="flex items-center gap-2 group">
+            <Link to="/" className="flex items-center gap-2 group" onClick={() => setMobileMenuOpen(false)}>
               {settings.header_logo && !logoError && (
                 <img
                   src={settings.header_logo}

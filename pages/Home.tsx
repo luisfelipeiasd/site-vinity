@@ -9,7 +9,7 @@ import { supabase } from '../lib/supabase';
 import { useState, useEffect } from 'react';
 
 const Home = () => {
-  const { settings } = useSettings();
+  const { settings, loading } = useSettings();
   const [featuredProjects, setFeaturedProjects] = useState<any[]>([]);
   const [mainTestimonial, setMainTestimonial] = useState<any>(null);
   const [dynamicServices, setDynamicServices] = useState<any[]>([]);
@@ -38,13 +38,22 @@ const Home = () => {
     fetchData();
   }, []);
 
+  const getAspectClass = (aspect: string) => {
+    switch (aspect) {
+      case 'vertical': return 'aspect-[3/4]';
+      case 'horizontal': return 'aspect-video';
+      case 'square': return 'aspect-square';
+      default: return 'aspect-video';
+    }
+  };
+
   return (
     <main className="flex-grow">
       {/* Hero Section */}
       <section className="relative w-full h-[100vh] min-h-[700px] md:min-h-[900px] flex items-center justify-center overflow-hidden bg-background-dark pb-20 md:pb-40">
         <div
-          className="absolute inset-0 z-0 bg-cover bg-center opacity-60 scale-105 animate-[kenburns_20s_infinite_alternate]"
-          style={{ backgroundImage: `url('${settings.hero_banner || IMAGES.HERO}')` }}
+          className={`absolute inset-0 z-0 bg-cover bg-center scale-105 animate-[kenburns_20s_infinite_alternate] transition-opacity duration-700 ${loading ? 'opacity-0' : 'opacity-60'}`}
+          style={{ backgroundImage: `url('${settings?.hero_banner || IMAGES.HERO}')` }}
         />
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-background-dark/90 via-background-dark/40 to-black/30" />
 
@@ -175,11 +184,11 @@ const Home = () => {
           <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 w-full">
             {featuredProjects.map((project, index) => (
               <Reveal key={project.id} delay={index * 0.1} width="100%">
-                <Link to="/portfolio" className="relative group block break-inside-avoid rounded-3xl overflow-hidden shadow-lg cursor-pointer">
+                <Link to="/portfolio" className={`relative group block break-inside-avoid rounded-3xl overflow-hidden shadow-lg cursor-pointer ${getAspectClass(project.aspect)}`}>
                   <img
                     src={project.image_url}
                     alt={project.title}
-                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                     <div className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transform scale-0 group-hover:scale-100 transition-transform duration-500 delay-100">
