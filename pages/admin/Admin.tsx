@@ -868,13 +868,20 @@ const UploadsGallery = () => {
     const [files, setFiles] = useState<any[]>([]);
 
     useEffect(() => {
-        getGalleryFiles().then(setFiles);
+        getGalleryFiles()
+            .then(setFiles)
+            .catch(console.error);
     }, []);
 
     const deleteFile = async (id: string) => {
         if (confirm('Excluir este arquivo da galeria?')) {
-            await supabase.from('uploads_gallery').delete().eq('id', id);
-            getGalleryFiles().then(setFiles);
+            try {
+                await supabase.from('uploads_gallery').delete().eq('id', id);
+                getGalleryFiles().then(setFiles).catch(console.error);
+            } catch (error) {
+                alert('Erro ao excluir arquivo');
+                console.error(error);
+            }
         }
     };
 
