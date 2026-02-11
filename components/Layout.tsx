@@ -70,7 +70,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 <img
                   src={settings.header_logo}
                   alt="Vinity Logo"
-                  className={`w-auto max-w-[400px] object-contain transition-all duration-300 ${isScrolled || mobileMenuOpen ? 'h-[115px]' : 'h-[120px]'}`}
+                  className="h-[110px] w-auto max-w-[400px] object-contain"
                   style={(isScrolled || mobileMenuOpen) ? { filter: 'brightness(0) saturate(100%) invert(70%) sepia(59%) saturate(452%) hue-rotate(357deg) brightness(97%) contrast(93%)' } : {}}
                   onError={() => setLogoError(true)}
                 />
