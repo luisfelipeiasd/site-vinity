@@ -204,7 +204,7 @@ const SmartUpload: React.FC<SmartUploadProps> = ({ label, value, onChange, hint,
             onChange(url);
             setMode('link');
         } catch (err) {
-            alert('Erro no upload. Verifique as configurações do Supabase Storage.');
+            alert(`Erro no upload: ${(err as any).message || JSON.stringify(err)}`);
         } finally {
             setIsUploading(false);
         }
