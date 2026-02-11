@@ -57,10 +57,10 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     <div className="relative flex min-h-screen w-full flex-col font-display">
       {/* Header */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b ${(isScrolled || mobileMenuOpen)
-          ? 'bg-white/85 backdrop-blur-xl border-gray-200 py-1 shadow-sm'
-          : 'bg-transparent border-transparent py-1.5'
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,shadow] duration-500 border-b ${(isScrolled || mobileMenuOpen)
+          ? 'bg-white/85 backdrop-blur-xl border-gray-200 shadow-sm'
+          : 'bg-transparent border-transparent'
+          } py-2`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center">
           {/* Logo Container */}
